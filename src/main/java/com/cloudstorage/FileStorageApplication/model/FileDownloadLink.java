@@ -1,7 +1,7 @@
 package com.cloudstorage.FileStorageApplication.model;
 
 import com.cloudstorage.FileStorageApplication.utils.CustomDateDeserializer;
-import org.codehaus.jackson.map.annotate.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import org.springframework.boot.jackson.JsonComponent;
 
 import java.time.LocalDateTime;

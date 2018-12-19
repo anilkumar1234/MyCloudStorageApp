@@ -6,12 +6,14 @@ import com.cloudstorage.FileStorageApplication.model.CloudFile;
 import com.cloudstorage.FileStorageApplication.model.FileDownloadLink;
 import com.cloudstorage.FileStorageApplication.repository.FileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
-
+@Service
 public class FileStorageServiceImpl implements FileStorageService {
 
     @Autowired
@@ -23,15 +25,21 @@ public class FileStorageServiceImpl implements FileStorageService {
     }
 
     @Override
-    public Resource downloadFile(String path) throws FileNotFoundException, AuthException {
+    public FileDownloadLink downloadFile(String path) throws FileNotFoundException, AuthException {
         FileDownloadLink lnk=fileRepository.getFile(path);
-        return null;
+        return lnk;
     }
 
     @Override
-    public CloudFile uploadFile(File file) throws AuthException, FileStorageException {
+    public CloudFile uploadFile(MultipartFile file) throws AuthException, FileStorageException {
         CloudFile uploadedFile=fileRepository.upload(file);
-        return null;
+        return uploadedFile;
     }
+
+    @Override
+    public File fetchResource(String cloudElementsLink) throws IOException, AuthException {
+        return fileRepository.fetchFile(cloudElementsLink);
+    }
+
 
 }

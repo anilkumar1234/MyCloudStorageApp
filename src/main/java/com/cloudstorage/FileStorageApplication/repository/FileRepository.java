@@ -4,9 +4,11 @@ import com.cloudstorage.FileStorageApplication.exception.AuthException;
 import com.cloudstorage.FileStorageApplication.exception.FileStorageException;
 import com.cloudstorage.FileStorageApplication.model.CloudFile;
 import com.cloudstorage.FileStorageApplication.model.FileDownloadLink;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 
 public interface FileRepository {
@@ -15,5 +17,7 @@ public interface FileRepository {
 
     FileDownloadLink getFile(String path) throws FileNotFoundException, AuthException;
 
-    CloudFile upload(File file) throws FileStorageException, AuthException;
+    File fetchFile(String url) throws AuthException, IOException;
+
+    CloudFile upload(MultipartFile file) throws FileStorageException, AuthException;
 }

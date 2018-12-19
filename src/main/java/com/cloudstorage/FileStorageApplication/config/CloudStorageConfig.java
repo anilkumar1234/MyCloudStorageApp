@@ -13,6 +13,15 @@ public class CloudStorageConfig {
 
     private String usersecret;
     private String organization_secret;
+    private String dropboxElement;
+
+    public String getDropboxElement() {
+        return dropboxElement;
+    }
+
+    public void setDropboxElement(String dropboxElement) {
+        this.dropboxElement = dropboxElement;
+    }
 
     public String getDownloadFileUri() {
         return endPoint+downloadFileUri;
@@ -61,4 +70,5 @@ public class CloudStorageConfig {
     public void setOrganization_secret(String organization_secret) {
         this.organization_secret = organization_secret;
     }
+
 }
