@@ -37,4 +37,5 @@ public class BeanConfig {
         logger.info("AuthString:"+authString);
         return authString;
     }
+
 }

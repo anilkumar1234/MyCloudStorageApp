@@ -49,7 +49,9 @@ public class CloudFileRepository implements FileRepository {
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url)
                 .queryParam("path", path);
         logger.info("Url:"+builder.toUriString());
-        ResponseEntity<FileDownloadLink> responseEntity=restTemplate.exchange(builder.toUriString(), HttpMethod.GET,null,FileDownloadLink.class);
+        HttpHeaders httpHeaders = new HttpHeaders();
+        HttpEntity<String> entity=new HttpEntity<>(httpHeaders);
+        ResponseEntity<FileDownloadLink> responseEntity=restTemplate.exchange(builder.toUriString(), HttpMethod.GET,entity,FileDownloadLink.class);
         FileDownloadLink result = responseEntity.getBody();
         return result;
     }
