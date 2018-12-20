@@ -17,7 +17,7 @@ public interface FileRepository {
 
     FileDownloadLink getFile(String path) throws FileNotFoundException, AuthException;
 
-    File fetchFile(String url) throws AuthException, IOException;
+    File fetchFile(String url, String fileName) throws AuthException, IOException;
 
-    CloudFile upload(MultipartFile file) throws FileStorageException, AuthException;
+    CloudFile upload(MultipartFile file, String path) throws FileStorageException, AuthException, IOException;
 }

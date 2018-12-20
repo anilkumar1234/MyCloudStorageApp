@@ -3,26 +3,26 @@ package com.cloudstorage.FileStorageApplication.model;
 import com.cloudstorage.FileStorageApplication.utils.CustomDateDeserializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class CloudFile {
     @JsonDeserialize(using = CustomDateDeserializer.class)
-    private LocalDate createdDate;
+    private LocalDateTime createdDate;
     private boolean directory;
     private String id;
     @JsonDeserialize(using = CustomDateDeserializer.class)
-    private LocalDate modifiedDate;
+    private LocalDateTime modifiedDate;
     private String name;
     private String path;
     private long size;
     private List<String> tags;
 
-    public LocalDate getCreatedDate() {
+    public LocalDateTime getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(LocalDate createdDate) {
+    public void setCreatedDate(LocalDateTime createdDate) {
         this.createdDate = createdDate;
     }
 
@@ -42,11 +42,11 @@ public class CloudFile {
         this.id = id;
     }
 
-    public LocalDate getModifiedDate() {
+    public LocalDateTime getModifiedDate() {
         return modifiedDate;
     }
 
-    public void setModifiedDate(LocalDate modifiedDate) {
+    public void setModifiedDate(LocalDateTime modifiedDate) {
         this.modifiedDate = modifiedDate;
     }
 

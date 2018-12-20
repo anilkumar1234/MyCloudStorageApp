@@ -17,7 +17,7 @@ public interface FileStorageService {
 
     FileDownloadLink downloadFile(String path) throws FileNotFoundException, AuthException;
 
-    CloudFile uploadFile(MultipartFile file) throws AuthException, FileStorageException;
+    CloudFile uploadFile(MultipartFile file, String path) throws AuthException, FileStorageException, IOException;
 
-    File fetchResource(String cloudElementsLink) throws IOException,AuthException;
+    File fetchResource(String cloudElementsLink, String fileName) throws IOException,AuthException;
 }

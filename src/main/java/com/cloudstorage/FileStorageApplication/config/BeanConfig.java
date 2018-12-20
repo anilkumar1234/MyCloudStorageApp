@@ -1,7 +1,6 @@
 package com.cloudstorage.FileStorageApplication.config;
 
 import com.cloudstorage.FileStorageApplication.interceptors.CustomCloudInterceptor;
-import com.cloudstorage.FileStorageApplication.interceptors.LoggingRequestInterceptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.converter.ByteArrayHttpMessageConverter;
+import org.springframework.http.converter.FormHttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
@@ -26,11 +26,12 @@ public class BeanConfig {
     public RestTemplate getRestTemplate(){
         List<ClientHttpRequestInterceptor> interceptors = new ArrayList<>();
         interceptors.add(new CustomCloudInterceptor("Authorization", buildAuthString()));
-        interceptors.add(new LoggingRequestInterceptor());
+        //interceptors.add(new LoggingRequestInterceptor());
         interceptors.add(new CustomCloudInterceptor("Accept", "application/json"));
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.setInterceptors(interceptors);
         restTemplate.getMessageConverters().add(new ByteArrayHttpMessageConverter());
+        restTemplate.getMessageConverters().add(new FormHttpMessageConverter());
         return restTemplate;
     }
 

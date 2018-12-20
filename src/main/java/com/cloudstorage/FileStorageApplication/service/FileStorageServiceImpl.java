@@ -31,14 +31,14 @@ public class FileStorageServiceImpl implements FileStorageService {
     }
 
     @Override
-    public CloudFile uploadFile(MultipartFile file) throws AuthException, FileStorageException {
-        CloudFile uploadedFile=fileRepository.upload(file);
+    public CloudFile uploadFile(MultipartFile file, String path) throws AuthException, FileStorageException, IOException {
+        CloudFile uploadedFile=fileRepository.upload(file,path);
         return uploadedFile;
     }
 
     @Override
-    public File fetchResource(String cloudElementsLink) throws IOException, AuthException {
-        return fileRepository.fetchFile(cloudElementsLink);
+    public File fetchResource(String cloudElementsLink, String fileName) throws IOException, AuthException {
+        return fileRepository.fetchFile(cloudElementsLink,fileName);
     }
 
 

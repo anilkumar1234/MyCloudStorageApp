@@ -1,6 +1,5 @@
 package com.cloudstorage.FileStorageApplication.exception;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class ErrorDetails {
