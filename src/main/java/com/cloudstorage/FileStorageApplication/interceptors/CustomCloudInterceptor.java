@@ -1,4 +1,4 @@
-package com.cloudstorage.FileStorageApplication.config;
+package com.cloudstorage.FileStorageApplication.interceptors;
 
 import org.springframework.http.HttpRequest;
 import org.springframework.http.client.ClientHttpRequestExecution;

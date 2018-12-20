@@ -38,7 +38,7 @@ public class FileSystemController {
     @GetMapping("/download")
     public ResponseEntity<File> downloadFile(@RequestParam("fileName") String fileName, HttpServletRequest request) throws IOException, AuthException {
         FileDownloadLink lnk= fileStorageService.downloadFile(fileName);
-        logger.info("Url:"+lnk.getCloudElementsLink());
+        logger.info("File Url:"+lnk.getCloudElementsLink());
         File file=fileStorageService.fetchResource(lnk.getCloudElementsLink());
         // Try to determine file's content type
         String contentType = null;

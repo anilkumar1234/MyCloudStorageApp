@@ -27,6 +27,7 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public final ResponseEntity<ErrorDetails> handleFileNotFoundException(Exception ex, WebRequest request){
+        ex.printStackTrace();
         return new ResponseEntity<>(new ErrorDetails(ex.getLocalizedMessage(),ex.getMessage(),500),HttpStatus.INTERNAL_SERVER_ERROR);
     }
 

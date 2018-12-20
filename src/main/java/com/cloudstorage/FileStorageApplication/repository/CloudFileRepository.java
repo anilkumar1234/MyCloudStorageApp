@@ -26,6 +26,7 @@ import java.util.List;
 public class CloudFileRepository implements FileRepository {
 
     private static final Logger logger= LoggerFactory.getLogger(CloudFileRepository.class);
+
     @Autowired
     RestTemplate restTemplate;
 
@@ -48,11 +49,12 @@ public class CloudFileRepository implements FileRepository {
         String url=cloudConfig.getDownloadFileUri();
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url)
                 .queryParam("path", path);
-        logger.info("Url:"+builder.toUriString());
+        logger.info("Url:"+builder.build(false).toUriString());
         HttpHeaders httpHeaders = new HttpHeaders();
         HttpEntity<String> entity=new HttpEntity<>(httpHeaders);
-        ResponseEntity<FileDownloadLink> responseEntity=restTemplate.exchange(builder.toUriString(), HttpMethod.GET,entity,FileDownloadLink.class);
+        ResponseEntity<FileDownloadLink> responseEntity=restTemplate.exchange(builder.build(false).toUriString(), HttpMethod.GET,entity,FileDownloadLink.class);
         FileDownloadLink result = responseEntity.getBody();
+        logger.info("Result:"+result);
         return result;
     }
 

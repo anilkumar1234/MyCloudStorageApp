@@ -1,5 +1,7 @@
 package com.cloudstorage.FileStorageApplication.config;
 
+import com.cloudstorage.FileStorageApplication.interceptors.CustomCloudInterceptor;
+import com.cloudstorage.FileStorageApplication.interceptors.LoggingRequestInterceptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,7 @@ public class BeanConfig {
     public RestTemplate getRestTemplate(){
         List<ClientHttpRequestInterceptor> interceptors = new ArrayList<>();
         interceptors.add(new CustomCloudInterceptor("Authorization", buildAuthString()));
+        interceptors.add(new LoggingRequestInterceptor());
         interceptors.add(new CustomCloudInterceptor("Accept", "application/json"));
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.setInterceptors(interceptors);
