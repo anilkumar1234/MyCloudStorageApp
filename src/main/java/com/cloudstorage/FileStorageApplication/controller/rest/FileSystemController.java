@@ -5,6 +5,8 @@ import com.cloudstorage.FileStorageApplication.exception.FileStorageException;
 import com.cloudstorage.FileStorageApplication.model.CloudFile;
 import com.cloudstorage.FileStorageApplication.model.FileDownloadLink;
 import com.cloudstorage.FileStorageApplication.service.FileStorageService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/rest")
+@CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
+@Api(value="CloudStorage",description = "operations on CloudStorage(DropBox) files",consumes = "application/json",produces = "application/json")
 public class FileSystemController {
 
     private static final Logger logger= LoggerFactory.getLogger(FileSystemController.class);
@@ -31,14 +35,16 @@ public class FileSystemController {
     @Autowired
     FileStorageService fileStorageService;
 
+    @ApiOperation(value="Get contents of a directory",response = List.class)
     @GetMapping("/list")
-    public List<CloudFile> listFiles(@RequestParam(value="path",required = true)String path) throws FileNotFoundException, AuthException {
+    public List<CloudFile> listFiles(@RequestParam(value="path",required = true)String path) throws Exception {
         logger.info("Path:"+path);
         return fileStorageService.listFiles(path);
     }
 
+    @ApiOperation(value="Download a file from given path",response = ResponseEntity.class)
     @GetMapping("/download")
-    public ResponseEntity<Resource> downloadFile(@RequestParam(value = "fileName",required = true) String fileName, HttpServletRequest request) throws IOException, AuthException {
+    public ResponseEntity<Resource> downloadFile(@RequestParam(value = "fileName",required = true) String fileName, HttpServletRequest request) throws Exception {
         FileDownloadLink lnk= fileStorageService.downloadFile(fileName);
         logger.info("File Url:"+lnk.getCloudElementsLink());
         File file=fileStorageService.fetchResource(lnk.getCloudElementsLink(),fileName);
@@ -57,8 +63,9 @@ public class FileSystemController {
                 .body(resource);
     }
 
+    @ApiOperation(value="Upload a file to a directory",response = CloudFile.class)
     @PostMapping("/upload")
-    public CloudFile uploadFile(@RequestParam(value="file",required = true) MultipartFile file,@RequestParam(value="path",required = true) String path) throws AuthException, FileStorageException, IOException {
+    public CloudFile uploadFile(@RequestParam(value="file",required = true) MultipartFile file,@RequestParam(value="path",required = true) String path) throws Exception {
         return fileStorageService.uploadFile(file,path);
     }
 

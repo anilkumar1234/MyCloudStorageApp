@@ -13,11 +13,11 @@ import java.util.List;
 
 public interface FileStorageService {
 
-    List<CloudFile> listFiles(String path) throws FileNotFoundException, AuthException;
+    List<CloudFile> listFiles(String path) throws Exception;
 
-    FileDownloadLink downloadFile(String path) throws FileNotFoundException, AuthException;
+    FileDownloadLink downloadFile(String path) throws Exception;
 
-    CloudFile uploadFile(MultipartFile file, String path) throws AuthException, FileStorageException, IOException;
+    CloudFile uploadFile(MultipartFile file, String path) throws Exception;
 
-    File fetchResource(String cloudElementsLink, String fileName) throws IOException,AuthException;
+    File fetchResource(String cloudElementsLink, String fileName) throws Exception;
 }
