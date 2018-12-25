@@ -2,7 +2,6 @@ package com.cloudstorage.FileStorageApplication.repository;
 
 import com.cloudstorage.FileStorageApplication.config.CloudStorageConfig;
 import com.cloudstorage.FileStorageApplication.exception.AuthException;
-import com.cloudstorage.FileStorageApplication.exception.FileStorageException;
 import com.cloudstorage.FileStorageApplication.model.CloudFile;
 import com.cloudstorage.FileStorageApplication.model.FileDownloadLink;
 import org.slf4j.Logger;
@@ -22,7 +21,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -53,7 +51,7 @@ public class CloudFileRepository implements FileRepository {
                 throw new FileNotFoundException("File not found:"+path);
             }
             else if(responseEntity.getStatusCode()==HttpStatus.UNAUTHORIZED){
-                throw new AuthException("Not authrized");
+                throw new AuthException("Not authorized");
             }
         }catch (HttpServerErrorException err){
             throw new Exception("Internal Server occured");
@@ -98,16 +96,21 @@ public class CloudFileRepository implements FileRepository {
         ResponseEntity<byte[]> responseEntity=null;
         try {
             responseEntity = restTemplate.exchange(url, HttpMethod.GET, entity, byte[].class);
+            if (responseEntity.getStatusCode() == HttpStatus.OK) {
+                String name=fileName.substring(fileName.lastIndexOf("/")+1);
+                path=Files.write(Paths.get(name), responseEntity.getBody());
+            }
         }catch (HttpClientErrorException err){
             if(err.getStatusCode()==HttpStatus.NOT_FOUND){
                 throw new FileNotFoundException("File not found:"+path);
             }
             else if(responseEntity.getStatusCode()==HttpStatus.UNAUTHORIZED){
-                throw new AuthException("Not authrized");
+                throw new AuthException("Not authorized");
             }
         }catch (HttpServerErrorException err){
             throw new Exception("Internal Server occured");
         }
+
 
         return path.getFileName().toFile();
     }
@@ -137,7 +140,7 @@ public class CloudFileRepository implements FileRepository {
                 throw new FileNotFoundException("File not found:"+path);
             }
             else if(responseEntity.getStatusCode()==HttpStatus.UNAUTHORIZED){
-                throw new AuthException("Not authrized");
+                throw new AuthException("Not authorized");
             }
         }catch (HttpServerErrorException err){
             throw new Exception("Internal Server occured");

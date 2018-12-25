@@ -1,7 +1,5 @@
 package com.cloudstorage.FileStorageApplication.controller.rest;
 
-import com.cloudstorage.FileStorageApplication.exception.AuthException;
-import com.cloudstorage.FileStorageApplication.exception.FileStorageException;
 import com.cloudstorage.FileStorageApplication.model.CloudFile;
 import com.cloudstorage.FileStorageApplication.model.FileDownloadLink;
 import com.cloudstorage.FileStorageApplication.service.FileStorageService;
@@ -20,13 +18,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.List;
 
 @RestController
 @RequestMapping("/rest")
-@CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
+@CrossOrigin(origins = "*", maxAge = 3600)
 @Api(value="CloudStorage",description = "operations on CloudStorage(DropBox) files",consumes = "application/json",produces = "application/json")
 public class FileSystemController {
 

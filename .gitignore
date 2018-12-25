@@ -25,3 +25,5 @@
 /.nb-gradle/
 
 /ui/node_modules
+/node_modules
+*.json

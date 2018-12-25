@@ -1,20 +1,19 @@
 package com.cloudstorage.FileStorageApplication.service;
 
 import com.cloudstorage.FileStorageApplication.exception.AuthException;
-import com.cloudstorage.FileStorageApplication.exception.FileStorageException;
 import com.cloudstorage.FileStorageApplication.model.CloudFile;
 import com.cloudstorage.FileStorageApplication.model.FileDownloadLink;
 import com.cloudstorage.FileStorageApplication.repository.FileRepository;
-//import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+//import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 @Service
 public class FileStorageServiceImpl implements FileStorageService {
 
